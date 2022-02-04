@@ -44,7 +44,7 @@ if($_REQUEST['api'] === 'categories'){
     $sql .= " ORDER BY category ASC";
 }
 if($_REQUEST['api'] === 'subcategories'){
-    $sql = "SELECT id,subcategory AS name,category AS categoryId,status FROM catalogue_subcats WHERE id!=0";
+    $sql = "SELECT id,subcategory AS name,category AS categoryId,slug,status FROM catalogue_subcats WHERE id!=0";
     if($categoryId) $sql .= " AND category=".$categoryId;
     if($id) $sql .= " AND id=".$id;
     $sql .= " ORDER BY subcategory ASC";

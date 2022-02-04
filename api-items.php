@@ -62,7 +62,7 @@ $sql = null;
 $sqlCust = null;
 $debug = "";
 
-if(isset($_GET['api']))  $api = $_GET['api'];
+if(isset($_GET['api'])) $api = $_GET['api'];
 if(isset($_GET['id']))  $itemId = $_GET['id'];
 if(isset($_GET['ids'])) $itemIds = $_GET['ids'];
 if(isset($_GET['categoryId'])) $categoryId = $_GET['categoryId'];
@@ -83,6 +83,8 @@ if($api === 'items'){
     $qLimit = " LIMIT 500";
     if($limit) $qLimit = " LIMIT ".$limit;        
 
+    if($categoryId) $sqlWhere .= " AND catalogue.category=$categoryId";
+
     if($categoryId == 2) {
         $isStockPage = true;
         $sqlSelect .= $sqlSelectCommonStock; 
@@ -98,6 +100,8 @@ if($api === 'items'){
             $sqlWhere .= " AND catalogue.subcategory=".$subcategoryId;
         }
     }
+
+    if($subcategoryId) $sqlWhere .= " AND catalogue.subcategory=$subcategoryId";
     
     if(isset($itemId) || isset($itemIds)) {
         $sqlGroup = "";
@@ -138,6 +142,7 @@ $sql .= $qLimit;
 
 if($sqlCust) $sql = $sqlCust;
 
+// echo $sql;
 if($sql){
     $debug .= $sql;
 
